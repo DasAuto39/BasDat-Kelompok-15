@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Atur Rentang Nilai</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="topnav">
+        <a href="index.html">Penilaian Form</a>
+        <a href="history.html">Histori</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="logout.php">Logout</a>
+    </div>
+
+    <h2>Atur Rentang Nilai Predikat</h2>
+
+    <form id="gradeRangeForm">
+      <input type="number" name="lower_bound" placeholder="Nilai Minimum (kosongkan jika <)">
+      <input type="number" name="upper_bound" placeholder="Nilai Maksimum (kosongkan jika >)">
+      <input type="text" name="predikat" placeholder="Predikat (contoh: Baik)">
+      <button type="submit">Tambah/Perbarui Rentang</button>
+    </form>
+
+    <h2>Daftar Rentang Nilai</h2>
+
+    <table id="rangeTable">
+      <thead>
+        <tr>
+          <th>Nilai Minimum</th>
+          <th>Nilai Maksimum</th>
+          <th>Predikat</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+
+    <script src="script/grade_range.js"></script>
+</body>
+</html>

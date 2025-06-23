@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Penilaian Project</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="topnav">
+    <a href="history.html"> Histori</a>
+    <a href="pengaturan_penilaian.html"> Pengaturan Penilaian</a>
+    <a href="dashboard.html"> Dashboard</a>
+    <a href="logout.php"> Logout</a>
+  </div>
+
+
+<h2 style="font-size : 48px">Form Penilaian Project</h2>
+
+<div class="center-container">
+
+  <form id="penilaianForm" onsubmit="event.preventDefault(); submitForm();">
+    <!-- Nama Proyek -->
+    <div class="form-group">
+      <label for="projectName">Nama Project:</label>
+      <input type="text" id="projectName" name="projectName" required>
+    </div>
+
+    <!-- Tambah Kategori -->
+    <div class="form-group">
+      <label for="newMainAssessment">Tambah Kategori Penilaian:</label>
+      <input type="text" id="newMainAssessment">
+      <button type="button" onclick="addMainAssessment()">Tambah Kategori</button>
+    </div>
+
+    <!-- Tambah Sub Penilaian -->
+    <div class="form-group">
+      <label for="mainAssessmentSelect">Pilih Kategori:</label>
+      <select id="mainAssessmentSelect"></select>
+
+      <input type="text" id="newSubAssessment" placeholder="Sub Penilaian">
+      <button type="button" onclick="addSubAssessment()">Tambah Sub</button>
+    </div>
+
+    <!-- Form Dinamis -->
+    <div id="dynamicAssessmentsContainer"></div>
+
+    <!-- Tombol Simpan -->
+    <div class="form-group center-button">
+      <button type="submit">Simpan Penilaian</button>
+    </div>
+  </form>
+</div>
+
+
+
+
+<script src="script/form.js"></script>
+</body>
+</html>

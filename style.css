@@ -172,7 +172,7 @@ button:hover {
 
 .card-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   gap: 20px;
   flex-wrap: wrap;
@@ -185,8 +185,10 @@ button:hover {
   padding: 30px;
   width: 300px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  border-radius: 15px;
+  border-radius: 12px;
   transition: transform 0.2s ease;
+
+  
 }
 
 .card:hover {
@@ -222,5 +224,3 @@ button:hover {
   text-align: center;
   margin-bottom: 30px;
 }
-
-

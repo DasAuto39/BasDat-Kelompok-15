@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             predikat: formData.get("predikat")
         };
 
-        fetch('php/save_grade_range.php', {
+        fetch('php/grade_ranges.php?action=save', { // Panggil endpoint baru
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
@@ -25,12 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 alert(res.message || "Gagal menambahkan data.");
             }
+        })
+        .catch(error => {
+            console.error("Error saving range:", error);
+            alert("Terjadi kesalahan saat menyimpan rentang nilai.");
         });
     });
 });
 
 function loadRanges() {
-    fetch("php/fetch_grade_ranges.php")
+    fetch("php/fetch_grade_ranges.php") // Endpoint ini tetap karena hanya untuk membaca
         .then(res => res.json())
         .then(data => {
             const table = document.getElementById("rangeTable").querySelector("tbody");
@@ -49,21 +53,27 @@ function loadRanges() {
                 `;
                 table.appendChild(tr);
             });
+        })
+        .catch(error => {
+            console.error("Error loading ranges:", error);
+            alert("Terjadi kesalahan saat memuat rentang nilai.");
         });
 }
-
-
 
 function deleteRange(id) {
     if (!confirm("Yakin ingin menghapus rentang ini?")) return;
 
-    fetch("php/delete_grade_range.php", {
+    fetch("php/grade_ranges.php?action=delete", { // Panggil endpoint baru
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
     })
     .then(res => res.json())
-    .then(() => loadRanges());
+    .then(() => loadRanges())
+    .catch(error => {
+        console.error("Error deleting range:", error);
+        alert("Terjadi kesalahan saat menghapus rentang nilai.");
+    });
 }
 
 function editRange(id, lower, upper, predikat) {
@@ -71,7 +81,9 @@ function editRange(id, lower, upper, predikat) {
     const newUpper = prompt("Nilai Maksimum:", upper !== null ? upper : '');
     const newPredikat = prompt("Predikat:", predikat);
 
-    fetch("php/update_grade_range.php", {
+    if (newPredikat === null) return; // Pembatalan prompt
+
+    fetch("php/grade_ranges.php?action=update", { // Panggil endpoint baru
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -82,5 +94,9 @@ function editRange(id, lower, upper, predikat) {
         })
     })
     .then(res => res.json())
-    .then(() => loadRanges());
+    .then(() => loadRanges())
+    .catch(error => {
+        console.error("Error updating range:", error);
+        alert("Terjadi kesalahan saat memperbarui rentang nilai.");
+    });
 }

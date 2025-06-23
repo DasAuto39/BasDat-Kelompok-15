@@ -12,7 +12,7 @@ if (!$data) {
 }
 
 $projectName = $data['projectName'];
-$assessments = $data['assessments'];
+$assessments = $data['assessments']; // This now expects main_assessment_id and sub_assessment_id
 $totalErrors = (int)$data['totalErrors'];
 $finalScore = (int)$data['finalScore'];
 
@@ -24,11 +24,11 @@ $projectId = $stmt->insert_id;
 
 // 2. Cari predikat dari grade_ranges
 $stmtGrade = $conn->prepare("
-    SELECT predikat 
-    FROM grade_ranges 
-    WHERE 
-        (lower_bound IS NULL OR ? >= lower_bound) AND 
-        (upper_bound IS NULL OR ? <= upper_bound) 
+    SELECT predikat
+    FROM grade_ranges
+    WHERE
+        (lower_bound IS NULL OR ? >= lower_bound) AND
+        (upper_bound IS NULL OR ? <= upper_bound)
     LIMIT 1
 ");
 $stmtGrade->bind_param("ii", $finalScore, $finalScore);
@@ -49,40 +49,9 @@ $stmt->bind_param("iiiss", $projectId, $totalErrors, $finalScore, $grade, $statu
 $stmt->execute();
 $projectResultId = $stmt->insert_id;
 
-// 5. Simpan assessments (main + sub + skor)
-foreach ($assessments as $main => $subs) {
-    // Cek atau insert main assessment
-    $stmt = $conn->prepare("SELECT id FROM main_assessments WHERE name = ?");
-    $stmt->bind_param("s", $main);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($row = $result->fetch_assoc()) {
-        $mainId = $row['id'];
-    } else {
-        $stmtInsert = $conn->prepare("INSERT INTO main_assessments (name) VALUES (?)");
-        $stmtInsert->bind_param("s", $main);
-        $stmtInsert->execute();
-        $mainId = $stmtInsert->insert_id;
-    }
-
-    foreach ($subs as $sub => $error) {
-        // Cek atau insert sub assessment
-        $stmt = $conn->prepare("SELECT id FROM sub_assessments WHERE name = ? AND main_assessment_id = ?");
-        $stmt->bind_param("si", $sub, $mainId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($row = $result->fetch_assoc()) {
-            $subId = $row['id'];
-        } else {
-            $stmtInsert = $conn->prepare("INSERT INTO sub_assessments (main_assessment_id, name) VALUES (?, ?)");
-            $stmtInsert->bind_param("is", $mainId, $sub);
-            $stmtInsert->execute();
-            $subId = $stmtInsert->insert_id;
-        }
-
-        // Simpan skor
+// 5. Simpan assessment scores
+foreach ($assessments as $mainId => $subs) {
+    foreach ($subs as $subId => $error) {
         $stmt = $conn->prepare("INSERT INTO assessment_scores (project_id, sub_assessment_id, error_count) VALUES (?, ?, ?)");
         $stmt->bind_param("iii", $projectId, $subId, $error);
         $stmt->execute();

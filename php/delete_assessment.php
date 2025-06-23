@@ -40,3 +40,4 @@ $stmt->bind_param("i", $projectId);
 $stmt->execute();
 
 echo json_encode(["success" => true, "message" => "Data berhasil dihapus."]);
+?>

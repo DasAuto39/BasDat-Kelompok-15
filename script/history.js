@@ -28,7 +28,7 @@ function displayPenilaianData(data) {
             <td>${item.projectName}</td>
             <td>${item.totalErrors}</td>
             <td>${item.finalScore}</td>
-            <td>${item.predikat}</td> 
+            <td>${item.predikat}</td>
             <td>${item.status}</td>
             <td><button onclick="deleteData(${item.projectId})">Hapus</button></td>
         `;

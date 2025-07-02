@@ -1,4 +1,4 @@
-let dynamicAssessments = {}; // Stores fetched main and sub-assessments with their IDs
+let dynamicAssessments = {};
 
 // Utility to create a valid HTML ID
 function toId(str) {
@@ -7,15 +7,14 @@ function toId(str) {
 
 async function fetchAssessments() {
     try {
-        const response = await fetch('php/fetch_assessments.php'); // Mengambil dari file fetch_assessments.php yang baru
+        const response = await fetch('php/fetch_assessments.php');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        // Restrukturisasi data menjadi objek untuk akses yang lebih mudah di renderDynamicForm
         dynamicAssessments = {};
         data.forEach(mainCat => {
-            dynamicAssessments[mainCat.id] = { // Gunakan ID main_assessment sebagai kunci
+            dynamicAssessments[mainCat.id] = {
                 name: mainCat.name,
                 subs: mainCat.subs
             };
@@ -49,10 +48,10 @@ function renderDynamicForm() {
         title.textContent = mainName;
 
         const deleteMainBtn = document.createElement('button');
-        deleteMainBtn.textContent = '✖';
+        deleteMainBtn.textContent = 'Hapus'; // Diubah dari '✖' menjadi 'Hapus'
         deleteMainBtn.title = 'Hapus kategori';
         deleteMainBtn.className = 'delete-btn';
-        deleteMainBtn.onclick = () => deleteMainAssessment(mainId, mainName); // Pass mainId directly
+        deleteMainBtn.onclick = () => deleteMainAssessment(mainId, mainName);
 
         titleWrapper.appendChild(title);
         titleWrapper.appendChild(deleteMainBtn);
@@ -67,12 +66,12 @@ function renderDynamicForm() {
 
             const input = document.createElement('input');
             input.type = 'number';
-            input.id = `input_${sub.id}`; // Use sub.id for unique identification
+            input.id = `input_${sub.id}`;
             input.value = 0;
             input.min = 0;
 
             const deleteSubBtn = document.createElement('button');
-            deleteSubBtn.textContent = '🗑️';
+            deleteSubBtn.textContent = 'Hapus'; // Diubah dari '🗑️' menjadi 'Hapus'
             deleteSubBtn.title = 'Hapus sub';
             deleteSubBtn.className = 'delete-btn';
             deleteSubBtn.onclick = () => deleteSubAssessment(sub.id, sub.name, mainName);
@@ -91,11 +90,10 @@ function renderDynamicForm() {
 function updateMainAssessmentSelect() {
     const select = document.getElementById('mainAssessmentSelect');
     select.innerHTML = '<option value="">Pilih Kategori</option>';
-    // Gunakan data dari dynamicAssessments yang sudah dimuat dengan ID
     for (const mainId in dynamicAssessments) {
         const mainCategory = dynamicAssessments[mainId];
         const option = document.createElement('option');
-        option.value = mainId; // Store ID in value
+        option.value = mainId;
         option.textContent = mainCategory.name;
         select.appendChild(option);
     }
@@ -105,7 +103,7 @@ async function addMainAssessment() {
     const main = document.getElementById('newMainAssessment').value.trim();
     if (main) {
         try {
-            const response = await fetch('php/assessments.php?action=save_main', { // Panggil endpoint baru
+            const response = await fetch('php/assessments.php?action=save_main', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: main })
@@ -114,7 +112,7 @@ async function addMainAssessment() {
             if (data.success) {
                 alert(data.message);
                 document.getElementById('newMainAssessment').value = '';
-                fetchAssessments(); // Re-fetch to update the UI
+                fetchAssessments();
             } else {
                 alert(data.message);
             }
@@ -132,7 +130,7 @@ async function addSubAssessment() {
     const sub = document.getElementById('newSubAssessment').value.trim();
     if (mainId && sub) {
         try {
-            const response = await fetch('php/assessments.php?action=save_sub', { // Panggil endpoint baru
+            const response = await fetch('php/assessments.php?action=save_sub', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ main_id: mainId, name: sub })
@@ -141,7 +139,7 @@ async function addSubAssessment() {
             if (data.success) {
                 alert(data.message);
                 document.getElementById('newSubAssessment').value = '';
-                fetchAssessments(); // Re-fetch to update the UI
+                fetchAssessments();
             } else {
                 alert(data.message);
             }
@@ -157,7 +155,7 @@ async function addSubAssessment() {
 async function deleteMainAssessment(mainId, mainName) {
     if (confirm(`Hapus kategori "${mainName}" dan semua sub-nya?`)) {
         try {
-            const response = await fetch('php/assessments.php?action=delete_main', { // Panggil endpoint baru
+            const response = await fetch('php/assessments.php?action=delete_main', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: mainId })
@@ -165,7 +163,7 @@ async function deleteMainAssessment(mainId, mainName) {
             const data = await response.json();
             if (data.success) {
                 alert(data.message);
-                fetchAssessments(); // Re-fetch to update the UI
+                fetchAssessments();
             } else {
                 alert(data.message);
             }
@@ -179,7 +177,7 @@ async function deleteMainAssessment(mainId, mainName) {
 async function deleteSubAssessment(subId, subName, mainName) {
     if (confirm(`Hapus sub penilaian "${subName}" dari kategori "${mainName}"?`)) {
         try {
-            const response = await fetch('php/assessments.php?action=delete_sub', { // Panggil endpoint baru
+            const response = await fetch('php/assessments.php?action=delete_sub', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: subId })
@@ -187,7 +185,7 @@ async function deleteSubAssessment(subId, subName, mainName) {
             const data = await response.json();
             if (data.success) {
                 alert(data.message);
-                fetchAssessments(); // Re-fetch to update the UI
+                fetchAssessments();
             } else {
                 alert(data.message);
             }
@@ -207,14 +205,13 @@ async function submitForm() {
     const assessmentsPayload = {};
     let totalErrors = 0;
 
-    // Loop through dynamicAssessments to get all current inputs
     for (const mainId in dynamicAssessments) {
         const mainCategory = dynamicAssessments[mainId];
-        assessmentsPayload[mainId] = {}; // Initialize mainId in payload
+        assessmentsPayload[mainId] = {};
         mainCategory.subs.forEach(subItem => {
             const inputId = `input_${subItem.id}`;
             const inputElement = document.getElementById(inputId);
-            if (inputElement) { // Pastikan elemen input ada sebelum mencoba mengambil nilainya
+            if (inputElement) {
                 const val = parseInt(inputElement.value || 0);
                 assessmentsPayload[mainId][subItem.id] = val;
                 totalErrors += val;
@@ -232,7 +229,7 @@ async function submitForm() {
     };
 
     try {
-        const response = await fetch('php/save_assessment.php', {
+        const response = await fetch('php/project_action.php?action=save', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -243,8 +240,7 @@ async function submitForm() {
             if (data.success) {
                 alert("Data berhasil disimpan!");
                 document.getElementById('penilaianForm').reset();
-                // Optionally reset assessment inputs to 0, but fetching will re-render
-                fetchAssessments(); // Reload form with default values
+                fetchAssessments();
             } else {
                 alert("Gagal menyimpan data: " + data.message);
             }
@@ -259,5 +255,5 @@ async function submitForm() {
 }
 
 window.onload = () => {
-    fetchAssessments(); // Load assessments from the database on page load
+    fetchAssessments();
 };

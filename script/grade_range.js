@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             predikat: formData.get("predikat")
         };
 
-        fetch('php/grade_ranges.php?action=save', { // Panggil endpoint baru
+        fetch('php/grade_ranges.php?action=save', {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadRanges() {
-    fetch("php/fetch_grade_ranges.php") // Endpoint ini tetap karena hanya untuk membaca
+    fetch("php/fetch_grade_ranges.php")
         .then(res => res.json())
         .then(data => {
             const table = document.getElementById("rangeTable").querySelector("tbody");
@@ -47,9 +47,8 @@ function loadRanges() {
                     <td>${item.upper_bound !== null ? item.upper_bound : "-"}</td>
                     <td>${item.predikat}</td>
                     <td>
-                        <button onclick="editRange(${item.id}, ${item.lower_bound}, ${item.upper_bound}, '${item.predikat}')">✏️</button>
-                        <button onclick="deleteRange(${item.id})">🗑️</button>
-                    </td>
+                        <button onclick="editRange(${item.id}, ${item.lower_bound}, ${item.upper_bound}, '${item.predikat}')">Edit</button>
+                        <button class="delete-btn" onclick="deleteRange(${item.id})">Hapus</button> </td>
                 `;
                 table.appendChild(tr);
             });
@@ -63,7 +62,7 @@ function loadRanges() {
 function deleteRange(id) {
     if (!confirm("Yakin ingin menghapus rentang ini?")) return;
 
-    fetch("php/grade_ranges.php?action=delete", { // Panggil endpoint baru
+    fetch("php/grade_ranges.php?action=delete", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
@@ -81,9 +80,9 @@ function editRange(id, lower, upper, predikat) {
     const newUpper = prompt("Nilai Maksimum:", upper !== null ? upper : '');
     const newPredikat = prompt("Predikat:", predikat);
 
-    if (newPredikat === null) return; // Pembatalan prompt
+    if (newPredikat === null) return;
 
-    fetch("php/grade_ranges.php?action=update", { // Panggil endpoint baru
+    fetch("php/grade_ranges.php?action=update", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -1,226 +1,605 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 30px;
-  background-color: #f9f9f9;
-  color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #e0f2f7 0%, #cce7f0 100%);
+    color: #333;
+    line-height: 1.6;
+    padding: 30px;
 }
 
 h2, h3 {
-  text-align: center;
-  margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-weight: 600;
 }
 
 h2 {
-  font-size: 2rem;
+    font-size: 2.5rem;
 }
 
 table {
-  width: 90%;
-  margin: 20px auto;
-  border-collapse: collapse;
+    width: 90%;
+    margin: 25px auto;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 th, td {
-  border: 1px solid #aaa;
-  padding: 10px;
-  text-align: center;
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: center;
 }
 
 th {
-  background-color: #3498db;
-  color: white;
+    background-color: #3498db;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+tr:hover {
+    background-color: #eef7fc;
 }
 
 button {
-  padding: 10px 20px;
-  margin-top: 10px;
-  display: inline-block;
-  font-weight: bold;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+    padding: 10px 20px;
+    margin-top: 10px;
+    display: inline-block;
+    font-weight: bold;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 button:hover {
-  background-color: #2980b9;
+    background-color: #2980b9;
+    transform: translateY(-2px);
 }
+
+.add-button { /* Gaya khusus untuk tombol 'Tambah Kategori' dan 'Tambah Sub' */
+    background-color: #28a745; /* Warna hijau */
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.add-button:hover {
+    background-color: #218838;
+}
+
 
 .delete-btn {
-  background-color: #e74c3c !important;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 28px;
-  height: 28px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
+    background-color: #c0392b !important; /* Merah yang lebih gelap dan tidak terlalu cerah */
+    color: white;
+    border: none;
+    padding: 8px 12px; /* Padding lebih proporsional untuk teks 'Hapus' */
+    border-radius: 5px;
+    cursor: pointer;
+    /* Lebar dan tinggi dihapus, biarkan padding & konten yang menentukan */
+    /* width: 32px; */
+    /* height: 32px; */
+    display: inline-flex; /* Agar konten bisa di-align */
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem; /* Ukuran font sedikit disesuaikan agar pas */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Beri bayangan agar lebih menonjol */
+    text-decoration: none; /* Pastikan tidak ada underline jika ini link */
 }
 
+.delete-btn:hover {
+    background-color: #a02d22 !important; /* Warna merah saat hover yang lebih gelap lagi */
+    transform: translateY(-1px); /* Efek terangkat sedikit */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Bayangan lebih kuat saat hover */
+}
+  
+
 .form-section {
-  margin-bottom: 30px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: white;
+    margin-bottom: 30px;
+    padding: 25px;
+    border: none;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.form-section:hover {
+    transform: translateY(-3px);
 }
 
 .title-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
 }
 
 .row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 12px 0;
 }
 
 .row label {
-  flex: 1;
-  font-weight: bold;
+    flex: 1;
+    font-weight: 600;
+    color: #444;
 }
 
+/* Penyesuaian untuk input angka dalam baris dinamis */
 .row input[type="number"] {
-  width: 80px;
-  padding: 6px;
-  border: 1px solid #aaa;
-  border-radius: 4px;
+    width: 100px; /* Lebar lebih proporsional untuk angka */
+    padding: 8px 12px;
+    border: 1px solid #cce7f0; /* Border yang serasi dengan tema */
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    text-align: center; /* Angka di tengah */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+.row input[type="number"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
 
 .center-container {
-  max-width: 800px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 30px 40px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    max-width: 850px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 35px 50px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .form-group {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .form-group label {
-  font-weight: bold;
+    font-weight: 600;
+    color: #2c3e50;
 }
 
 .form-group input[type="text"],
+.form-group input[type="number"],
 .form-group select {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 100%;
-  box-sizing: border-box;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #cce7f0;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1.05rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.form-group button {
+    margin-top: 15px;
 }
 
 .center-button {
-  text-align: center;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Gaya untuk grup input dan tombol tambah */
+.add-item-group {
+    display: flex;
+    flex-wrap: wrap; /* Izinkan wrap pada layar kecil */
+    align-items: flex-end; /* Sejajarkan items ke bawah */
+    gap: 10px; /* Jarak antar elemen */
+}
+
+.add-item-group label {
+    flex-basis: 100%; /* Label mengambil lebar penuh */
+    margin-bottom: 0; /* Hapus margin bawah label */
+}
+
+.add-item-group input[type="text"],
+.add-item-group select {
+    flex: 1; /* Input dan select mengambil ruang yang tersedia */
+    min-width: 150px; /* Minimum lebar agar tidak terlalu sempit */
+    margin-top: 0; /* Hapus margin atas default */
+}
+
+.add-item-group button {
+    margin-top: 0; /* Hapus margin atas default tombol */
+    flex-shrink: 0; /* Pastikan tombol tidak menyusut */
 }
 
 
 /* Top Navigation */
 .topnav {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  background-color: #3498db;
-  padding: 10px 20px;
-  border-radius: 8px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    background: linear-gradient(90deg, #2c3e50 0%, #34495e 100%);
+    padding: 12px 25px;
+    border-radius: 10px;
+    position: sticky;
+    top: 20px;
+    z-index: 1000;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 .topnav a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  background-color: #2980b9;
-  padding: 6px 12px;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    background-color: #3498db;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .topnav a:hover {
-  background-color: #1f5f8b;
+    background-color: #2980b9;
+    transform: translateY(-1px);
 }
 
 .dashboard {
-  margin: 40px 0 0 20px; /* Jauhkan dari atas & kiri sedikit saja */
-  padding: 0;
-  text-align: left;
-}
-
-.dashboard-desc {
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 30px;
-}
-
-.card-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-left: 0; /* Pastikan tidak ada margin kiri */
-  padding-left: 0;
-}
-
-.card {
-  background: #fdfdfd;
-  padding: 30px;
-  width: 300px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  border-radius: 12px;
-  transition: transform 0.2s ease;
-
-  
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card h2 {
-  margin-top: 0;
-  color: #333;
-}
-
-.card p {
-  color: #666;
-  font-size: 15px;
-}
-
-.card-button {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.card-button:hover {
-  background-color: #0056b3;
+    margin: 40px auto;
+    max-width: 1000px;
+    padding: 0 20px;
+    text-align: center;
 }
 
 .welcome-text {
-  text-align: center;
-  margin-bottom: 30px;
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.welcome-text h1 {
+    font-size: 3rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.welcome-text p {
+    font-size: 1.15rem;
+    color: #555;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.card {
+    background: #fdfdfd;
+    padding: 35px;
+    width: 320px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.card h2 {
+    font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: left;
+}
+
+.card p {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.card-button {
+    display: inline-block;
+    margin-top: auto;
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0,123,255,0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.card-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0,123,255,0.3);
+}
+
+/* Filter Section di history.html */
+.filter-section {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.filter-section .form-group {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 0;
+}
+
+.filter-section .form-group label {
+    margin-bottom: 5px;
+    display: block;
+}
+
+.filter-section .form-group input[type="text"],
+.filter-section .form-group input[type="number"], /* Pastikan ini juga ditargetkan */
+.filter-section .form-group select {
+    width: 100%;
+}
+
+.filter-section .center-button {
+    flex-basis: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.filter-section button {
+    margin: 0 10px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .topnav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        top: 0;
+        border-radius: 0;
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+
+    .topnav a {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .center-container {
+        padding: 20px 25px;
+    }
+
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .card {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    table {
+        width: 100%;
+        font-size: 0.9em;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    .form-group input, .form-group select, .form-group button {
+        width: auto;
+    }
+
+    .add-item-group {
+        flex-direction: column;
+        align-items: stretch; /* Mengisi lebar penuh */
+    }
+
+    .add-item-group input,
+    .add-item-group select,
+    .add-item-group button {
+        width: 100%; /* Ambil lebar penuh di mode kecil */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    h2 {
+        font-size: 1.8rem;
+    }
+    .welcome-text p {
+        font-size: 1rem;
+    }
+    .form-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    /* Pastikan input number di .row juga responsif */
+    .row input[type="number"] {
+        width: 100%;
+    }
+    .delete-btn {
+        margin-left: 0;
+        align-self: flex-end;
+    }
+}
+
+
+.detail-btn {
+    background-color: #007bff; /* Warna biru untuk detail */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,123,255,0.2);
+    text-decoration: none;
+    margin-right: 8px; /* Jarak antara tombol detail dan hapus */
+}
+
+.detail-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+}
+
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1001; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-top: 50px; /* Space from top */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto; /* Center modal */
+    padding: 25px 35px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more responsive */
+    max-width: 600px; /* Max width for larger screens */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative; /* For close button positioning */
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.modal-content h4 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #34495e;
+    font-size: 1.1em;
+}
+
+.modal-content ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.modal-content ul li {
+    padding: 5px 0;
+    border-bottom: 1px dashed #eee; /* Light dashed separator */
+    font-size: 0.95em;
+    color: #555;
+}
+
+.modal-content ul li:last-child {
+    border-bottom: none; /* No border for the last item */
+}
+
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Penyesuaian colspan untuk tabel histori */
+#penilaianTable thead tr th:last-child,
+#penilaianTable tbody tr td:last-child {
+    width: 150px; /* Beri ruang lebih untuk dua tombol */
+}
+
+/* Media query untuk modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
 }

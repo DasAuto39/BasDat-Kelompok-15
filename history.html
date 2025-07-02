@@ -1,38 +1,80 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Histori Penilaian Project</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <title>Histori Penilaian</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="topnav">
-    <a href="index.html">Penilaian Form</a>
-    <a href="pengaturan_penilaian.html">Pengaturan Penilaian</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="logout.php">Logout</a>
-  </div>
+    <div class="topnav">
+        <a href="index.html">Penilaian Form</a>
+        <a href="pengaturan_penilaian.html">Atur Rentang Nilai</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="logout.php">Logout</a>
+    </div>
 
-  <h2>Histori Penilaian Project</h2>
+    <h2 style="font-size: 48px; margin-bottom: 30px;">Histori Penilaian</h2>
 
-  <table id="penilaianTable">
-    <thead>
-      <tr>
-        <th>Nama Project</th>
-        <th>Total Kesalahan</th>
-        <th>Skor Akhir</th>
-        <th>Predikat</th>
-        <th>Status</th>
-        <th>Aksi</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Data histori penilaian akan dimuat di sini -->
-    </tbody>
-  </table>
+    <div class="center-container">
+        <div class="filter-section">
+            <h3>Filter Histori</h3>
+            <div class="form-group">
+                <label for="filterProjectName">Nama Proyek:</label>
+                <input type="text" id="filterProjectName" placeholder="Cari nama proyek...">
+            </div>
+            <div class="form-group">
+                <label for="filterPredikat">Predikat:</label>
+                <select id="filterPredikat">
+                    <option value="">Semua Predikat</option>
+                    </select>
+            </div>
+            <div class="form-group">
+                <label for="filterStatus">Status:</label>
+                <select id="filterStatus">
+                    <option value="">Semua Status</option>
+                    <option value="Lulus">Lulus</option>
+                    <option value="Mengulang">Mengulang</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="filterMinScore">Skor Minimum:</label>
+                <input type="number" id="filterMinScore" placeholder="Contoh: 60" min="0" max="100">
+            </div>
+            <div class="form-group">
+                <label for="filterMaxScore">Skor Maksimum:</label>
+                <input type="number" id="filterMaxScore" placeholder="Contoh: 80" min="0" max="100">
+            </div>
+            <div class="center-button">
+                <button onclick="applyFilters()">Terapkan Filter</button>
+                <button onclick="clearFilters()" style="background-color: #6c757d;">Bersihkan Filter</button>
+            </div>
+        </div>
+    </div>
 
+    <table id="penilaianTable">
+      <thead>
+        <tr>
+          <th>Nama Proyek</th>
+          <th>Total Kesalahan</th>
+          <th>Skor Akhir</th>
+          <th>Predikat</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        </tbody>
+    </table>
 
-  <script src="script/history.js"></script>
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Detail Penilaian Proyek</h3>
+            <div id="modalDetailsContent">
+                </div>
+        </div>
+    </div>
+
+    <script src="script/history.js"></script>
 </body>
 </html>

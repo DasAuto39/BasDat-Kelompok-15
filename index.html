@@ -14,46 +14,38 @@
     <a href="logout.php"> Logout</a>
   </div>
 
-
-<h2 style="font-size : 48px">Form Penilaian Project</h2>
+<h2 style="font-size : 48px; margin-bottom: 30px;">Form Penilaian Project</h2>
 
 <div class="center-container">
 
   <form id="penilaianForm" onsubmit="event.preventDefault(); submitForm();">
-    <!-- Nama Proyek -->
     <div class="form-group">
       <label for="projectName">Nama Project:</label>
-      <input type="text" id="projectName" name="projectName" required>
+      <input type="text" id="projectName" name="projectName" placeholder="Masukkan nama proyek" required>
     </div>
 
-    <!-- Tambah Kategori -->
-    <div class="form-group">
+    <div class="form-group add-item-group">
       <label for="newMainAssessment">Tambah Kategori Penilaian:</label>
-      <input type="text" id="newMainAssessment">
-      <button type="button" onclick="addMainAssessment()">Tambah Kategori</button>
+      <input type="text" id="newMainAssessment" placeholder="Contoh: Penguasaan Materi">
+      <button type="button" onclick="addMainAssessment()" class="add-button">Tambah Kategori</button>
     </div>
 
-    <!-- Tambah Sub Penilaian -->
-    <div class="form-group">
+    <div class="form-group add-item-group">
       <label for="mainAssessmentSelect">Pilih Kategori:</label>
-      <select id="mainAssessmentSelect"></select>
-
-      <input type="text" id="newSubAssessment" placeholder="Sub Penilaian">
-      <button type="button" onclick="addSubAssessment()">Tambah Sub</button>
+      <select id="mainAssessmentSelect">
+          <option value="">Pilih Kategori</option>
+      </select>
+      <input type="text" id="newSubAssessment" placeholder="Contoh: Materi Basis Data">
+      <button type="button" onclick="addSubAssessment()" class="add-button">Tambah Sub</button>
     </div>
 
-    <!-- Form Dinamis -->
     <div id="dynamicAssessmentsContainer"></div>
 
-    <!-- Tombol Simpan -->
     <div class="form-group center-button">
       <button type="submit">Simpan Penilaian</button>
     </div>
   </form>
 </div>
-
-
-
 
 <script src="script/form.js"></script>
 </body>
